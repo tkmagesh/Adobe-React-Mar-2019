@@ -3,16 +3,132 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Greeter</title>
+	<style>
+		.highlight{
+			font-size: 18pt;
+			color : blue;
+		}
+	</style>
 	<script src="react.development.js"></script>
 	<script src="react-dom.development.js"></script>
 	<script src="babel.min.js"></script>
+	<script type="text/babel">
+
+		{/*
+			//Higher order components -> functions as components
+			let Greeter = () =>  (
+				<div>
+					<h1>Greeter</h1>
+					<hr/>
+					<label htmlFor="">User Name :</label>
+					<input type="text" name="" id="" />
+					<input type="button" value="Greet" />
+					<div className="highlight">[Greet Message]</div>
+				</div>
+			)
+		*/}
+
+		{/*Using Ref*/}
+		{/*
+		class Greeter extends React.Component{
+			
+			state = { greetMessage : 'Default greet message' };
+			txtUserNameRef = React.createRef();
+
+			onGreetClick = () => {
+				let userName = this.txtUserNameRef.current.value;
+				let message = `Hi ${userName}, Have a nice day!`;
+				this.setState({greetMessage : message});
+			}
+			
+			render = () => {
+				console.log('render called');
+				return (
+					<div>
+						<h1>Greeter</h1>
+						<hr/>
+						<label htmlFor="">User Name :</label>
+						<input type="text" ref={this.txtUserNameRef} />
+						<input type="button" value="Greet" onClick={this.onGreetClick} />
+						<div className="highlight">{this.state.greetMessage}</div>
+					</div>
+				)
+			}
+		}
+		*/}
+
+		{/* Using the state */}
+		{/*class Greeter extends React.Component{
+			
+			state = { 
+				greetMessage : 'Default greet message',
+				userName : ''
+			};
+			
+
+			onGreetClick = () => {
+				let message = `Hi ${this.state.userName}, Have a nice day!`;
+				this.setState({greetMessage : message});
+			}
+
+			onTxtUserNameChange = (evt) => {
+				this.setState({userName : evt.currentTarget.value});
+			}
+			
+			render = () => {
+				console.log('render called');
+				return (
+					<div>
+						<h1>Greeter</h1>
+						<hr/>
+						<label htmlFor="">User Name :</label>
+						<input type="text"  onChange={this.onTxtUserNameChange}/>
+						<input type="button" value="Greet" onClick={this.onGreetClick} />
+						<div className="highlight">{this.state.greetMessage}</div>
+					</div>
+				)
+			}
+		}*/}
+
+		{/* Using the class member*/}
+		class Greeter extends React.Component{
+			
+			state = { 
+				greetMessage : 'Default greet message'
+			};
+			userName = '';
+			
+
+			onGreetClick = () => {
+				let message = `Hi ${this.userName}, ${this.props.template}`;
+				this.setState({greetMessage : message});
+			}
+
+			onTxtUserNameChange = (evt) => {
+				this.userName = evt.currentTarget.value;
+			}
+			
+			render = () => {
+				console.log('render called');
+				return (
+					<div>
+						<h1>Greeter</h1>
+						<hr/>
+						<label htmlFor="">User Name :</label>
+						<input type="text"  onChange={this.onTxtUserNameChange}/>
+						<input type="button" value="Greet" onClick={this.onGreetClick} />
+						<div className="highlight">{this.state.greetMessage}</div>
+					</div>
+				)
+			}
+		}
+
+		let messageTemplate = 'Have a good day!'
+		ReactDOM.render(<Greeter template={messageTemplate} />
+			, document.getElementById('root'));
+	</script>
 </head>
 <body>
-	<h1>Greeter</h1>
-	<hr>
-	<label for="">User Name :</label>
-	<input type="text" name="" id="">
-	<input type="button" value="Greet">
-	<div>[Greet Message]</div>
+	<div id="root"></div>
 </body>
 </html>
