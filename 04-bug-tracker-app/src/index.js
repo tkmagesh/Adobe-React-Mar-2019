@@ -19,7 +19,7 @@ window['bugsCollection'] = bugsCollection;
 
 
 ReactDOM.render(
-	<Provider store={bugsCollection} >
-		<BugTracker />
-	</Provider>,
-	document.getElementById('root'));
+	<Provider bugsModel={bugsCollection} >
+		<BugTracker/>
+	</Provider>
+	, document.getElementById('root'));

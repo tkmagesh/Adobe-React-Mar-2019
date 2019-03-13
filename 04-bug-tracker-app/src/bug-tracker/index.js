@@ -4,15 +4,13 @@ import BugItem from './views/bugItem';
 import BugStats from './views/bugStats';
 import BugEdit from './views/bugEdit';
 
-@inject('store')
+@inject('bugsModel')
 @observer
 class BugTracker extends Component{
 	
-	
-
 	render(){
 		console.log(this.props);
-		let model = this.props.store,
+		let model = this.props.bugsModel,
 			bugs = model.getAll(),
 			bugItems = bugs.map((bug, index) => (
 				<BugItem bug={bug} key={index}/>

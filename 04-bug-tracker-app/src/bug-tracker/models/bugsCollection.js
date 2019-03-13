@@ -15,7 +15,7 @@ class BugsCollection{
 		return this._list.reduce((result, bug) => bug.isClosed ? ++result : result, 0);
 	}
 
-	@action
+	@action.bound
 	addNew(bugName){
 		let newBug = new Bug(bugName);
 		this._list.push(newBug);
