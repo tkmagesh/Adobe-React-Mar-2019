@@ -1,25 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Products from './models/products';
+import productsModel from './models/products';
 import ProductsCount from './views/productsCount';
 import ProductList from './views/productList';
 
 import * as serviceWorker from './serviceWorker';
+import {observe } from 'mobx';
 
-let model = new Products();
+window['model'] = productsModel;
 
-function renderProducts(){
+observe(productsModel.products, function renderProducts(){
+
 	ReactDOM.render(
 		<div>
-			<ProductsCount data={model.getCount()} />
-			<ProductList model={model}/>
+			<ProductsCount data={productsModel.getAll().length} />
+			<ProductList model={productsModel}/>
 		</div>,
 		document.getElementById('root'));
-}
-renderProducts();
+}, true);
 
-model.subscribe(renderProducts);
+//renderProducts();
+
+//model.subscribe(renderProducts);
 
 
 

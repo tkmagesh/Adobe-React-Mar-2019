@@ -1,6 +1,6 @@
-import EventEmitter from './eventEmitter';
+import { observable, action, toJS } from 'mobx';
 
-class Products extends EventEmitter{
+/*class Products extends EventEmitter{
 	list = [];
 
 	getAll(){
@@ -15,4 +15,14 @@ class Products extends EventEmitter{
 	}
 
 }
-export default Products;
+export default Products;*/
+
+let _products = observable([]);
+
+let getAll = () => toJS(_products);
+
+let addNew = action((productName) => _products.push(productName));
+
+let productsModel = { getAll, addNew, products : _products };
+
+export default productsModel;
