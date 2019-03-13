@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import BugTracker from './bug-tracker';
+import { Provider } from 'mobx-react';
 
 //import * as serviceWorker from './serviceWorker';
 
@@ -12,12 +13,13 @@ import BugTracker from './bug-tracker';
 // Learn more about service workers: https://bit.ly/CRA-PWA
 //serviceWorker.unregister();
 import bugsCollection from './bug-tracker/models/bugsCollection';
-
+import * as mobx from 'mobx';
+window['mobx'] = mobx;
 window['bugsCollection'] = bugsCollection;
 
-function renderApp(){
-	ReactDOM.render(<BugTracker model={bugsCollection} />,
-		document.getElementById('root'));
-}
-renderApp();
-bugsCollection.subscribe(renderApp);
+
+ReactDOM.render(
+	<Provider store={bugsCollection} >
+		<BugTracker />
+	</Provider>,
+	document.getElementById('root'));

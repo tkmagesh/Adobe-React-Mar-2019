@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
 class BugItem extends Component{
 	onBugNameClick = () => {
-		console.log('a bug is being clicked', this.props.bug);
 		this.props.bug.toggle();
 	}
 	render(){

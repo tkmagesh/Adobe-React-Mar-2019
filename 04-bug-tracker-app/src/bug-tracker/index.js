@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-
+import { observer, inject } from 'mobx-react'
 import BugItem from './views/bugItem';
+import BugStats from './views/bugStats';
+import BugEdit from './views/bugEdit';
 
+@inject('store')
+@observer
 class BugTracker extends Component{
-	state = { newBugName : ''};
-	onAddNewClick = () => {
-		this.props.model.addNew(this.state.newBugName);
-	}
+	
+	
 
 	render(){
-		let { model } = this.props,
+		console.log(this.props);
+		let model = this.props.store,
 			bugs = model.getAll(),
 			bugItems = bugs.map((bug, index) => (
 				<BugItem bug={bug} key={index}/>
 			));
 		return(
 			<>
-				<section className="stats">
-					<span className="closed">1</span>
-					<span> / </span>
-					<span>{bugs.length}</span>
-				</section>
+				<BugStats bugsCount={bugs.length} closedCount={model.closedCount} />
 				<section className="sort">
 					<label htmlFor="">Order By :</label>
 					<select name="" id="">
@@ -30,16 +29,12 @@ class BugTracker extends Component{
 					<label htmlFor="">Descending ? :</label>
 					<input type="checkbox" name="" id="" />
 				</section>
-				<section className="edit">
-					<label htmlFor="">Bug Name :</label>
-					<input type="text" onChange={evt => this.setState({ newBugName : evt.currentTarget.value})} />
-					<input type="button" value="Add New" onClick={this.onAddNewClick}/>
-				</section>
+				<BugEdit addNew={model.addNew} />
 				<section className="list">
 					<ol>
 						{bugItems}
 					</ol>
-					<input type="button" value="Remove Closed" />
+					<input type="button" value="Remove Closed" onClick={() => model.removeClosed()} />
 				</section>
 			</>
 		)
