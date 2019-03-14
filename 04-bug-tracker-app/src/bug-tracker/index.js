@@ -7,7 +7,9 @@ import BugEdit from './views/bugEdit';
 @inject('bugsModel')
 @observer
 class BugTracker extends Component{
-	
+	componentDidMount(){
+		this.props.bugsModel.load();
+	}
 	render(){
 		console.log(this.props);
 		let model = this.props.bugsModel,

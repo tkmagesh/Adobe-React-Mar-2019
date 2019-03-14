@@ -1,6 +1,7 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 
 import Bug from './bug';
+import bugApi from '../services/bugApi'
 
 class BugsCollection{
 
@@ -8,6 +9,19 @@ class BugsCollection{
 
 	getAll(){
 		return [...this._list];
+	}
+
+	@action
+	async load(){
+		let bugs = await bugApi.getAll()
+		runInAction(() => {
+			this._list = bugs;	
+		});
+		
+		/*this.sadfdsa
+		this.sasfdas
+		this.asdfdas*/
+
 	}
 
 	@computed

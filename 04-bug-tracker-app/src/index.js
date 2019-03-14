@@ -13,7 +13,13 @@ import { Provider } from 'mobx-react';
 // Learn more about service workers: https://bit.ly/CRA-PWA
 //serviceWorker.unregister();
 import bugsCollection from './bug-tracker/models/bugsCollection';
+import axios from 'axios';
+
+window['axios'] = axios;
+
+
 import * as mobx from 'mobx';
+
 window['mobx'] = mobx;
 window['bugsCollection'] = bugsCollection;
 

@@ -3,6 +3,7 @@ import { observable, action } from 'mobx';
 
 
 class Bug {
+	@observable id = 0;
 	@observable name = '';
 	@observable isClosed = false;
 	createdAt = new Date();
